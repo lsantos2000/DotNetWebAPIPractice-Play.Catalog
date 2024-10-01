@@ -89,3 +89,27 @@ Accept: application/json
 ###
 GET {{Play.Catalog.Service_HostAddress}}/api/Items/by-name-or-description?searchTerm=magic
 Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/by-name-length?length=6
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/by-description-length?length=25
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/by-name-starts-with?prefix=Po
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/by-description-starts-with?prefix=Restores
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/by-name-ends-with?suffix=tion
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/by-description-ends-with?suffix=health
+Accept: application/json

@@ -26,12 +26,14 @@ namespace Play.Catalog.Service.Controllers
             new ItemDto(Guid.NewGuid(), "Bracers", "Provides a small amount of arm protection", 14, DateTimeOffset.UtcNow)
         };
 
+        // GET /api/items
         [HttpGet]
         public ActionResult<IEnumerable<ItemDto>> Get()
         {
             return Ok(items);
         }
 
+        // GET /api/items/{id}
         [HttpGet("{id}")]
         public ActionResult<ItemDto> GetById(Guid id)
         {
@@ -45,6 +47,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(item);
         }
 
+        // POST /api/items
         [HttpPost]
         public ActionResult<ItemDto> Post(CreateItemDto createItemDto)
         {
@@ -54,6 +57,7 @@ namespace Play.Catalog.Service.Controllers
             return CreatedAtAction(nameof(GetById), new { id = item.Id }, item);
         }
 
+        // PUT /api/items/{id}
         [HttpPut("{id}")]
         public IActionResult Put(Guid id, UpdateItemDto updateItemDto)
         {
@@ -77,6 +81,7 @@ namespace Play.Catalog.Service.Controllers
             return NoContent();
         }
 
+        // DELETE /api/items/{id}
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
@@ -92,6 +97,7 @@ namespace Play.Catalog.Service.Controllers
             return NoContent();
         }
 
+        // GET /api/items/search
         [HttpGet("search")]
         public ActionResult<IEnumerable<ItemDto>> Search(string name)
         {
@@ -105,6 +111,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(matchedItems);
         }
 
+        // GET /api/items/price-range
         [HttpGet("price-range")]
         public ActionResult<IEnumerable<ItemDto>> GetByPriceRange(decimal minPrice, decimal maxPrice)
         {
@@ -118,6 +125,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(matchedItems);
         }
 
+        // GET /api/items/recent
         [HttpGet("recent")]
         public ActionResult<IEnumerable<ItemDto>> GetRecentItems(int count = 5)
         {
@@ -125,6 +133,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(recentItems);
         }
 
+        // GET /api/items/sorted
         [HttpGet("sorted")]
         public ActionResult<IEnumerable<ItemDto>> GetSortedItems(string sortBy = "name")
         {
@@ -138,6 +147,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(sortedItems);
         }
 
+        // GET /api/items/paged
         [HttpGet("paged")]
         public ActionResult<IEnumerable<ItemDto>> GetPagedItems(int pageNumber = 1, int pageSize = 10)
         {
@@ -145,12 +155,14 @@ namespace Play.Catalog.Service.Controllers
             return Ok(pagedItems);
         }
 
+        // GET /api/items/count
         [HttpGet("count")]
         public ActionResult<int> GetItemCount()
         {
             return Ok(items.Count);
         }
 
+        // GET /api/items/exists/{id}
         [HttpGet("exists/{id}")]
         public ActionResult<bool> ItemExists(Guid id)
         {
@@ -158,6 +170,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(exists);
         }
 
+        // GET /api/items/distinct-names
         [HttpGet("distinct-names")]
         public ActionResult<IEnumerable<string>> GetDistinctNames()
         {
@@ -165,6 +178,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(distinctNames);
         }
 
+        // GET /api/items/total-value
         [HttpGet("total-value")]
         public ActionResult<decimal> GetTotalValue()
         {
@@ -172,6 +186,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(totalValue);
         }
 
+        // GET /api/items/average-price
         [HttpGet("average-price")]
         public ActionResult<decimal> GetAveragePrice()
         {
@@ -179,6 +194,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(averagePrice);
         }
 
+        // GET /api/items/grouped-by-price
         [HttpGet("grouped-by-price")]
         public ActionResult<IEnumerable<IGrouping<decimal, ItemDto>>> GetItemsGroupedByPrice()
         {
@@ -186,6 +202,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(groupedItems);
         }
 
+        // GET /api/items/by-description
         [HttpGet("by-description")]
         public ActionResult<IEnumerable<ItemDto>> GetByDescription(string description)
         {
@@ -199,6 +216,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(matchedItems);
         }
 
+        // GET /api/items/by-name-and-price
         [HttpGet("by-name-and-price")]
         public ActionResult<IEnumerable<ItemDto>> GetByNameAndPrice(string name, decimal price)
         {
@@ -212,6 +230,7 @@ namespace Play.Catalog.Service.Controllers
             return Ok(matchedItems);
         }
 
+        // GET /api/items/by-creation-date
         [HttpGet("by-creation-date")]
         public ActionResult<IEnumerable<ItemDto>> GetByCreationDate(DateTimeOffset creationDate)
         {
@@ -225,10 +244,95 @@ namespace Play.Catalog.Service.Controllers
             return Ok(matchedItems);
         }
 
+        // GET /api/items/by-name-or-description
         [HttpGet("by-name-or-description")]
         public ActionResult<IEnumerable<ItemDto>> GetByNameOrDescription(string searchTerm)
         {
             var matchedItems = items.Where(item => item.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || item.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (!matchedItems.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(matchedItems);
+        }
+
+        // GET /api/items/by-name-length
+        [HttpGet("by-name-length")]
+        public ActionResult<IEnumerable<ItemDto>> GetByNameLength(int length)
+        {
+            var matchedItems = items.Where(item => item.Name.Length == length).ToList();
+
+            if (!matchedItems.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(matchedItems);
+        }
+
+        // GET /api/items/by-description-length
+        [HttpGet("by-description-length")]
+        public ActionResult<IEnumerable<ItemDto>> GetByDescriptionLength(int length)
+        {
+            var matchedItems = items.Where(item => item.Description.Length == length).ToList();
+
+            if (!matchedItems.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(matchedItems);
+        }
+
+        // GET /api/items/by-name-starts-with
+        [HttpGet("by-name-starts-with")]
+        public ActionResult<IEnumerable<ItemDto>> GetByNameStartsWith(string prefix)
+        {
+            var matchedItems = items.Where(item => item.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (!matchedItems.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(matchedItems);
+        }
+
+        // GET /api/items/by-description-starts-with
+        [HttpGet("by-description-starts-with")]
+        public ActionResult<IEnumerable<ItemDto>> GetByDescriptionStartsWith(string prefix)
+        {
+            var matchedItems = items.Where(item => item.Description.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (!matchedItems.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(matchedItems);
+        }
+
+        // GET /api/items/by-name-ends-with
+        [HttpGet("by-name-ends-with")]
+        public ActionResult<IEnumerable<ItemDto>> GetByNameEndsWith(string suffix)
+        {
+            var matchedItems = items.Where(item => item.Name.EndsWith(suffix, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (!matchedItems.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(matchedItems);
+        }
+
+        // GET /api/items/by-description-ends-with
+        [HttpGet("by-description-ends-with")]
+        public ActionResult<IEnumerable<ItemDto>> GetByDescriptionEndsWith(string suffix)
+        {
+            var matchedItems = items.Where(item => item.Description.EndsWith(suffix, StringComparison.OrdinalIgnoreCase)).ToList();
 
             if (!matchedItems.Any())
             {
