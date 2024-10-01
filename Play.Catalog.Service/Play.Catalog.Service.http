@@ -25,3 +25,67 @@ Content-Type: application/json
 
 ###
 DELETE {{Play.Catalog.Service_HostAddress}}/api/Items/1
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/1
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/search?name=Potion
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/price-range?minPrice=10&maxPrice=20
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/recent?count=3
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/sorted?sortBy=price
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/paged?pageNumber=1&pageSize=5
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/count
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/exists/1
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/distinct-names
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/total-value
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/average-price
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/grouped-by-price
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/by-description?description=health
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/by-name-and-price?name=Potion&price=5
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/by-creation-date?creationDate=2023-10-01T00:00:00Z
+Accept: application/json
+
+###
+GET {{Play.Catalog.Service_HostAddress}}/api/Items/by-name-or-description?searchTerm=magic
+Accept: application/json

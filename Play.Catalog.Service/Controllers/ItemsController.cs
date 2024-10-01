@@ -117,5 +117,126 @@ namespace Play.Catalog.Service.Controllers
 
             return Ok(matchedItems);
         }
+
+        [HttpGet("recent")]
+        public ActionResult<IEnumerable<ItemDto>> GetRecentItems(int count = 5)
+        {
+            var recentItems = items.OrderByDescending(item => item.CreatedDate).Take(count).ToList();
+            return Ok(recentItems);
+        }
+
+        [HttpGet("sorted")]
+        public ActionResult<IEnumerable<ItemDto>> GetSortedItems(string sortBy = "name")
+        {
+            IEnumerable<ItemDto> sortedItems = sortBy.ToLower() switch
+            {
+                "price" => items.OrderBy(item => item.Price),
+                "createddate" => items.OrderBy(item => item.CreatedDate),
+                _ => items.OrderBy(item => item.Name)
+            };
+
+            return Ok(sortedItems);
+        }
+
+        [HttpGet("paged")]
+        public ActionResult<IEnumerable<ItemDto>> GetPagedItems(int pageNumber = 1, int pageSize = 10)
+        {
+            var pagedItems = items.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            return Ok(pagedItems);
+        }
+
+        [HttpGet("count")]
+        public ActionResult<int> GetItemCount()
+        {
+            return Ok(items.Count);
+        }
+
+        [HttpGet("exists/{id}")]
+        public ActionResult<bool> ItemExists(Guid id)
+        {
+            var exists = items.Any(item => item.Id == id);
+            return Ok(exists);
+        }
+
+        [HttpGet("distinct-names")]
+        public ActionResult<IEnumerable<string>> GetDistinctNames()
+        {
+            var distinctNames = items.Select(item => item.Name).Distinct().ToList();
+            return Ok(distinctNames);
+        }
+
+        [HttpGet("total-value")]
+        public ActionResult<decimal> GetTotalValue()
+        {
+            var totalValue = items.Sum(item => item.Price);
+            return Ok(totalValue);
+        }
+
+        [HttpGet("average-price")]
+        public ActionResult<decimal> GetAveragePrice()
+        {
+            var averagePrice = items.Average(item => item.Price);
+            return Ok(averagePrice);
+        }
+
+        [HttpGet("grouped-by-price")]
+        public ActionResult<IEnumerable<IGrouping<decimal, ItemDto>>> GetItemsGroupedByPrice()
+        {
+            var groupedItems = items.GroupBy(item => item.Price).ToList();
+            return Ok(groupedItems);
+        }
+
+        [HttpGet("by-description")]
+        public ActionResult<IEnumerable<ItemDto>> GetByDescription(string description)
+        {
+            var matchedItems = items.Where(item => item.Description.Contains(description, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (!matchedItems.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(matchedItems);
+        }
+
+        [HttpGet("by-name-and-price")]
+        public ActionResult<IEnumerable<ItemDto>> GetByNameAndPrice(string name, decimal price)
+        {
+            var matchedItems = items.Where(item => item.Name.Contains(name, StringComparison.OrdinalIgnoreCase) && item.Price == price).ToList();
+
+            if (!matchedItems.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(matchedItems);
+        }
+
+        [HttpGet("by-creation-date")]
+        public ActionResult<IEnumerable<ItemDto>> GetByCreationDate(DateTimeOffset creationDate)
+        {
+            var matchedItems = items.Where(item => item.CreatedDate.Date == creationDate.Date).ToList();
+
+            if (!matchedItems.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(matchedItems);
+        }
+
+        [HttpGet("by-name-or-description")]
+        public ActionResult<IEnumerable<ItemDto>> GetByNameOrDescription(string searchTerm)
+        {
+            var matchedItems = items.Where(item => item.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || item.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (!matchedItems.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(matchedItems);
+        }
+
     }
 }

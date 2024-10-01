@@ -31,3 +31,4 @@ C:\source\test\Play.Catalog\Play.Catalog.Service\obj\Debug\net8.0\refint\Play.Ca
 C:\source\test\Play.Catalog\Play.Catalog.Service\obj\Debug\net8.0\Play.Catalog.Service.pdb
 C:\source\test\Play.Catalog\Play.Catalog.Service\obj\Debug\net8.0\Play.Catalog.Service.genruntimeconfig.cache
 C:\source\test\Play.Catalog\Play.Catalog.Service\obj\Debug\net8.0\ref\Play.Catalog.Service.dll
+C:\source\test\Play.Catalog\Play.Catalog.Service\obj\Debug\net8.0\Play.Catalog.Service.sourcelink.json
