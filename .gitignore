@@ -9,3 +9,8 @@ Play.Catalog.Service/obj/Debug/net8.0/Play.Catalog.Service.pdb
 Play.Catalog.Service/obj/Debug/net8.0/Play.Catalog.Service.sourcelink.json
 Play.Catalog.Service/obj/Debug/net8.0/ref/Play.Catalog.Service.dll
 Play.Catalog.Service/obj/Debug/net8.0/refint/Play.Catalog.Service.dll
+
+.fake
+src/Play.Catalog.Service/obj/Debug/net8.0/Play.Catalog.Service.dll
+src/Play.Catalog.Service/obj/Debug/net8.0/Play.Catalog.Service.GeneratedMSBuildEditorConfig.editorconfig
+src/Play.Catalog.Service/obj/Debug/net8.0/Play.Catalog.Service.genruntimeconfig.cache
