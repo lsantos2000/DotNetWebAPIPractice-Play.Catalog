@@ -4,6 +4,8 @@
 
 Play.Catalog.Service is a microservice responsible for managing the catalog of items in the Play application. It provides APIs to create, read, update, and delete catalog items.
 
+This version of the service uses an in memory create catalog of items.
+
 ## Features
 
 - Create new catalog items

@@ -1,0 +1,29 @@
+@Play_Catalog_Service_HostAddress = http://localhost:5076
+
+GET {{Play_Catalog_Service_HostAddress}}/api/Items
+Accept: application/json
+
+###
+POST {{Play_Catalog_Service_HostAddress}}/api/Items
+Content-Type: application/json
+
+{
+    "name": "NewItem",
+    "description": "New item description",
+    "price": 9.99
+}
+
+###
+PUT {{Play_Catalog_Service_HostAddress}}/api/Items/1
+Content-Type: application/json
+
+{
+    "name": "UpdatedItem",
+    "description": "Updated item description",
+    "price": 19.99
+}
+
+###
+DELETE {{Play_Catalog_Service_HostAddress}}/api/Items/1
+
+###

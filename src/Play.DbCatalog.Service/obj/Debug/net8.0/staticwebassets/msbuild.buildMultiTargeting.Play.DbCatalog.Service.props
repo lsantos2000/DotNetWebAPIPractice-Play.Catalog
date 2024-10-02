@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Play.DbCatalog.Service.props" />
+</Project>
