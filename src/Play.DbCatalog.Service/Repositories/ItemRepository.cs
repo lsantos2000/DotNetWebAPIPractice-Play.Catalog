@@ -1,8 +1,5 @@
 using MongoDB.Driver;
 using Play.DbCatalog.Service.Entities;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Play.DbCatalog.Service.Repositories
 {

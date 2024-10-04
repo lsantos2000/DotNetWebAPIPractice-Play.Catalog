@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      // Task to auto-run docker-compose on solution loading in VSCode
+      "label": "Run Docker Compose",
+      "type": "shell",
+      "command": "docker-compose -f ./docker-compose.yml up -d",
+      "problemMatcher": [],
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}
