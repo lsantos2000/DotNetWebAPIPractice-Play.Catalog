@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Play.Catalog.Service.Repositories
 {
-    public class ItemRepository
+    public class ItemRepository : IItemRepository
     {
         private const string CollectionName = "items";
         private readonly IMongoCollection<Item> dbCollection;
@@ -14,8 +14,8 @@ namespace Play.Catalog.Service.Repositories
 
         public ItemRepository()
         {
-            var mongoCLient = new MongoClient("mongodb://localhost:27017");
-            var database = mongoCLient.GetDatabase("Catalog");
+            var mongoClient = new MongoClient("mongodb://localhost:27017");
+            var database = mongoClient.GetDatabase("Catalog");
             dbCollection = database.GetCollection<Item>(CollectionName);
         }
 
@@ -51,6 +51,5 @@ namespace Play.Catalog.Service.Repositories
             var filter = filterBuilder.Eq(item => item.Id, id);
             await dbCollection.DeleteOneAsync(filter);
         }
-
     }
 }
