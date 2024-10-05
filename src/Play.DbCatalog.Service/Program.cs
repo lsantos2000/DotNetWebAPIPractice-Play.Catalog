@@ -1,35 +1,31 @@
 using MongoDB.Driver;
-using Microsoft.Extensions.Options;
-using Play.DbCatalog.Service;
+using Play.DbCatalog.Service.Settings;
 using Play.DbCatalog.Service.Repositories;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Linq;
+using Play.DbCatalog.Service;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen(); // Corrected method name
+builder.Services.AddSwaggerGen();
 
-// Configure MongoDB settings
-builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
+ServiceSettings serviceSettings = builder.Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new ServiceSettings();
 
-// Register MongoClient as a singleton
-builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
+builder.Services.AddSingleton(serviceProvider =>
 {
-    var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
-    return new MongoClient(settings.ConnectionString);
+    var mongoDbSettings = builder.Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
+    if (mongoDbSettings == null)
+    {
+        throw new InvalidOperationException("MongoDbSettings is not configured properly.");
+    }
+    var mongoClient = new MongoClient(mongoDbSettings.ConnectionString);
+
+    return mongoClient.GetDatabase(serviceSettings.ServiceName);
 });
 
-// Register your repository with the necessary parameters
-builder.Services.AddSingleton<ItemRepository>(sp =>
-{
-    var mongoClient = sp.GetRequiredService<IMongoClient>();
-    var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
-    return new ItemRepository(mongoClient, settings.DatabaseName, "Items"); // Assuming "Items" is your collection name
-});
+builder.Services.AddSingleton<ItemRepository, ItemRepository>();
 
 // Add logging
 builder.Logging.ClearProviders();

@@ -3,15 +3,16 @@ using Play.DbCatalog.Service.Entities;
 
 namespace Play.DbCatalog.Service.Repositories
 {
-    public class ItemRepository
+    public class ItemRepository : IItemRepository
     {
+
+        private const string CollectionName = "items";
         private readonly IMongoCollection<Item> dbCollection;
         private readonly FilterDefinitionBuilder<Item> filterBuilder = Builders<Item>.Filter;
 
-        public ItemRepository(IMongoClient mongoClient, string databaseName, string collectionName)
+        public ItemRepository(IMongoDatabase database)
         {
-            var database = mongoClient.GetDatabase(databaseName);
-            dbCollection = database.GetCollection<Item>(collectionName);
+            dbCollection = database.GetCollection<Item>(CollectionName);
         }
 
         public async Task<Item> GetAsync(Guid id)
