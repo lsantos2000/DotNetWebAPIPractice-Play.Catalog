@@ -14,3 +14,14 @@ Play.Catalog.Service/obj/Debug/net8.0/refint/Play.Catalog.Service.dll
 src/Play.Catalog.Service/obj/Debug/net8.0/Play.Catalog.Service.dll
 src/Play.Catalog.Service/obj/Debug/net8.0/Play.Catalog.Service.GeneratedMSBuildEditorConfig.editorconfig
 src/Play.Catalog.Service/obj/Debug/net8.0/Play.Catalog.Service.genruntimeconfig.cache
+src/Play.DbCatalog.Service/bin/Debug/net8.0/Play.DbCatalog.Service.dll
+src/Play.DbCatalog.Service/bin/Debug/net8.0/Play.DbCatalog.Service.exe
+src/Play.DbCatalog.Service/bin/Debug/net8.0/Play.DbCatalog.Service.pdb
+src/Play.DbCatalog.Service/obj/Debug/net8.0/apphost.exe
+src/Play.DbCatalog.Service/obj/Debug/net8.0/Play.DbCatalog.Service.AssemblyInfo.cs
+src/Play.DbCatalog.Service/obj/Debug/net8.0/Play.DbCatalog.Service.AssemblyInfoInputs.cache
+src/Play.DbCatalog.Service/obj/Debug/net8.0/Play.DbCatalog.Service.dll
+src/Play.DbCatalog.Service/obj/Debug/net8.0/Play.DbCatalog.Service.pdb
+src/Play.DbCatalog.Service/obj/Debug/net8.0/Play.DbCatalog.Service.sourcelink.json
+src/Play.DbCatalog.Service/obj/Debug/net8.0/ref/Play.DbCatalog.Service.dll
+src/Play.DbCatalog.Service/obj/Debug/net8.0/refint/Play.DbCatalog.Service.dll
